@@ -1,4 +1,3 @@
-```
 # Challenge Asgard
 
 This project is an Android application built using Java and Kotlin. It utilizes the following frameworks and tools:
@@ -41,4 +40,3 @@ This project is an Android application built using Java and Kotlin. It utilizes 
 
 ## License
 This project is licensed under the MIT License - see the `LICENSE` file for details.
-```
