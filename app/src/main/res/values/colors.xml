@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#0077b6</color>
+    <color name="colorPrimaryDark">#023e8a</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorBackground">#f8f9fa</color>
+    <color name="colorPrivateLesson">#E3F2FD</color>
+    <color name="colorGroupLesson">#E0F7FA</color>
 </resources>

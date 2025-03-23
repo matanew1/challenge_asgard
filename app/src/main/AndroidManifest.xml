@@ -13,7 +13,7 @@
         android:theme="@style/Theme.CHALLENGE_ASGARD"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.CHALLENGE_ASGARD">
             <intent-filter>
@@ -21,6 +21,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".StudentDashboardActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CHALLENGE_ASGARD">
+        </activity>
+
+        <activity
+            android:name=".AddLessonActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CHALLENGE_ASGARD">
         </activity>
     </application>
 
