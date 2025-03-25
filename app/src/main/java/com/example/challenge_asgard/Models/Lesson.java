@@ -1,65 +1,37 @@
 package com.example.challenge_asgard.Models;
 
-import android.util.Log;
+import android.os.Build;
 
-import androidx.annotation.NonNull;
-
-import com.example.challenge_asgard.API.ApiClient;
-import com.example.challenge_asgard.API.ApiService;
-import com.google.gson.annotations.SerializedName;
+import androidx.annotation.RequiresApi;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Lesson {
-
-    private ApiService apiService = ApiClient.getApiService();
-
-    @SerializedName("id")
     private String id;
+    private String studentId;
+    private String instructorId;
+    private Student.SwimmingStyle swimmingStyle;
+    private Student.LessonType lessonType;
+    private LocalDateTime startTime;
+    private int duration;
 
-    @SerializedName("student")
-    private Student student;
+    public Lesson() {
+        super();
+    }
 
-    @SerializedName("instructor")
-    private Instructor instructor;
-
-    @SerializedName("startDateTime")
-    private LocalDateTime startDateTime;
-
-    @SerializedName("swimStyle")
-    private List<SwimStyle> swimStyle;
-
-    @SerializedName("lessonType")
-    private LessonType lessonType;
-
-    @SerializedName("status")
-    private LessonStatus status;
-
-
-    public Lesson(String id, Student student, Instructor instructor, LocalDateTime startDateTime, List<SwimStyle> swimStyle, LessonType lessonType, LessonStatus status) {
+    public Lesson(String id, String studentId, String instructorId, Student.SwimmingStyle swimmingStyle, Student.LessonType lessonType, LocalDateTime startTime, long duration) {
         this.id = id;
-        this.student = student;
-        this.instructor = instructor;
-        this.startDateTime = startDateTime;
-        this.swimStyle = swimStyle;
+        this.studentId = studentId;
+        this.instructorId = instructorId;
+        this.swimmingStyle = swimmingStyle;
         this.lessonType = lessonType;
-        this.status = status;
+        this.startTime = startTime;
+        // Cast long duration to int, capping at Integer.MAX_VALUE if too large
+        this.duration = duration > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) duration;
     }
 
-    // Calculated properties
-    public LocalDateTime getEndDateTime() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            return startDateTime.plusMinutes(lessonType.getDurationMinutes());
-        }
-        return null;
-    }
+    // Rest of the methods remain the same...
 
-    // Getters and setters
 
     public String getId() {
         return id;
@@ -69,92 +41,56 @@ public class Lesson {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public Instructor getInstructor() {
-        return instructor;
+    public String getInstructorId() {
+        return instructorId;
     }
 
-    public void setInstructor(Instructor instructor) {
-        this.instructor = instructor;
+    public void setInstructorId(String instructorId) {
+        this.instructorId = instructorId;
     }
 
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
+    public Student.SwimmingStyle getSwimmingStyle() {
+        return swimmingStyle;
     }
 
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
+    public void setSwimmingStyle(Student.SwimmingStyle swimmingStyle) {
+        this.swimmingStyle = swimmingStyle;
     }
 
-    public List<SwimStyle> getSwimStyle() {
-        return swimStyle;
-    }
-
-    public void setSwimStyle(List<SwimStyle> swimStyle) {
-        this.swimStyle = swimStyle;
-    }
-
-    public LessonType getLessonType() {
+    public Student.LessonType getLessonType() {
         return lessonType;
     }
 
-    public void setLessonType(LessonType lessonType) {
+    public void setLessonType(Student.LessonType lessonType) {
         this.lessonType = lessonType;
     }
 
-    public LessonStatus getStatus() {
-        return status;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public void setStatus(LessonStatus status) {
-        this.status = status;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "Lesson{" +
-                "apiService=" + apiService +
-                ", id='" + id + '\'' +
-                ", student=" + student +
-                ", instructor=" + instructor +
-                ", startDateTime=" + startDateTime +
-                ", swimStyle=" + swimStyle +
-                ", lessonType=" + lessonType +
-                ", status=" + status +
-                '}';
+    public int getDuration() {
+        return duration;
     }
 
-    // Save method - This method could be used for local saving or direct network operations
-    public void save() {
-        // Make the API call to add a lesson
-        Call<Void> call = apiService.addLesson(this);
-        call.enqueue(new Callback<>() {
-            @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.isSuccessful()) {
-                    // Handle success
-                    Log.d("API", "Lesson added successfully.");
-                } else {
-                    // Handle failure (e.g., 400 or 500 response code)
-                    Log.e("API", "Failed to add lesson.");
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                // Handle failure (e.g., no internet connection)
-                Log.e("API", "Error: " + t.getMessage());
-            }
-        });
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public LocalDateTime getEndTime() {
+        return startTime.plusMinutes(duration);
+    }
 }

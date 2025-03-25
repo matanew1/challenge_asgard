@@ -1,20 +1,51 @@
 package com.example.challenge_asgard.Models;
 
-import java.util.List;
-public class Student extends User {
-    private List<Lesson> bookedLessons;
+import androidx.annotation.NonNull;
 
-    // Methods for booking/managing lessons
-    public void bookLesson(Lesson lesson) {
-        // Implementation
+public class Student extends BaseUser {
+    private SwimmingStyle preferredStyle;
+    private LessonType lessonPreference;
+
+    public enum SwimmingStyle {
+        CRAWL, BREASTSTROKE, BUTTERFLY, BACKSTROKE
     }
 
-    public List<Lesson> getBookedLessons() {
-        return bookedLessons;
+    public enum LessonType {
+        PRIVATE, GROUP, BOTH
     }
 
-    public void setType(String student) {
-        // Implementation
+    public Student() {
+        super();
+    }
 
+    public Student(String name, SwimmingStyle preferredStyle, LessonType lessonPreference) {
+        super(name);
+        this.preferredStyle = preferredStyle;
+        this.lessonPreference = lessonPreference;
+    }
+
+    public SwimmingStyle getPreferredStyle() {
+        return preferredStyle;
+    }
+
+    public void setPreferredStyle(SwimmingStyle preferredStyle) {
+        this.preferredStyle = preferredStyle;
+    }
+
+    public LessonType getLessonPreference() {
+        return lessonPreference;
+    }
+
+    public void setLessonPreference(LessonType lessonPreference) {
+        this.lessonPreference = lessonPreference;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Student{" +
+                "preferredStyle=" + preferredStyle +
+                ", lessonPreference=" + lessonPreference +
+                '}';
     }
 }

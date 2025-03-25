@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -17,8 +18,12 @@ import com.example.challenge_asgard.Adapters.LoginPagerAdapter;
 import com.example.challenge_asgard.Auth.AuthManager;
 import com.example.challenge_asgard.Models.Instructor;
 import com.example.challenge_asgard.Models.Student;
-import com.example.challenge_asgard.Models.User;
+import com.example.challenge_asgard.Models.BaseUser;
 import com.google.android.material.tabs.TabLayout;
+
+import org.jetbrains.annotations.Contract;
+
+import java.util.UUID;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -46,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private AuthManager authManager;
 
+    @NonNull
+    @Contract("_ -> new")
     public static Intent createIntent(Context context) {
         return new Intent(context, LoginActivity.class);
     }
@@ -60,10 +67,10 @@ public class LoginActivity extends AppCompatActivity {
         authManager = AuthManager.getInstance();
 
         // If already logged in, redirect to appropriate dashboard
-        User currentUser = authManager.getCurrentUser();
-        if (currentUser != null) {
-            Log.d(TAG, "User already logged in: " + currentUser.getEmail());
-            redirectToDashboard(currentUser);
+        BaseUser currentBaseUser = authManager.getCurrentUser();
+        if (currentBaseUser != null) {
+            Log.d(TAG, "User already logged in: " + currentBaseUser.getEmail());
+            redirectToDashboard(currentBaseUser);
             return;
         }
 
@@ -133,15 +140,22 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         Log.d(TAG, "Attempting login: " + email + " password: " + password + " isStudent: " + isStudent);
-        User user = authManager.login(email, password, isStudent);
-        Log.d(TAG, "User: " + user);
-        if (user != null) {
-            Log.d(TAG, "Login successful: " + user.getEmail());
-            redirectToDashboard(user);
-        } else {
-            Log.e(TAG, "Login failed: Invalid email or password");
-            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-        }
+
+        authManager.login(email, password, isStudent, new AuthManager.LoginCallback() {
+
+            @Override
+            public void onLoginSuccess(BaseUser user) {
+                Log.d(TAG, "Login successful: " + user.getEmail());
+                redirectToDashboard(user);
+            }
+
+            @Override
+            public void onLoginFailure(String errorMessage) {
+                Log.e(TAG, "Login failed: " + errorMessage);
+                Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void attemptRegister() {
@@ -158,38 +172,29 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        User newUser;
-        if (isStudent) {
-            newUser = new Student(); // Create a Student object
-        } else {
-            newUser = new Instructor(); // Create an Instructor object
-        }
+        Log.d(TAG, "Attempting registration: " + email + " isStudent: " + isStudent);
+        BaseUser baseUser = isStudent ? new Student() : new Instructor();
+        baseUser.setId(UUID.randomUUID().toString());
+        baseUser.setName(firstName + " " + lastName);
 
-        newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
-        newUser.setEmail(email);
-        newUser.setPassword(password);
-
-        boolean success = authManager.register(newUser);
-        if (success) {
-            Log.d(TAG, "Registration successful: " + newUser.getEmail());
-            Toast.makeText(this, "Registration successful. Please login.", Toast.LENGTH_SHORT).show();
-            viewPager.setCurrentItem(0); // Switch to login tab
-        } else {
-            Log.e(TAG, "Registration failed: Email already exists");
-            Toast.makeText(this, "Email already exists", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void redirectToDashboard(User user) {
         Intent intent;
-        if (user instanceof Student) {
-            intent = new Intent(this, StudentDashboardActivity.class);
-        } else {
-            // If user is an Instructor, redirect to Instructor dashboard
-            intent = new Intent(this, StudentDashboardActivity.class);
-        }
+        intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
+
+    private void redirectToDashboard(BaseUser baseUser) {
+        if (baseUser instanceof Student) {
+            Intent intent = StudentDashboardActivity.createIntent(this);
+            startActivity(intent);
+        } else if (baseUser instanceof Instructor) {
+            Intent intent = InstructorActivity.createIntent(this);
+            startActivity(intent);
+        } else {
+            Log.e(TAG, "Unknown user type: " + baseUser.getClass().getSimpleName());
+            Toast.makeText(this, "Unknown user type", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
+
+

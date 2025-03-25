@@ -6,4 +6,6 @@
     <color name="colorBackground">#f8f9fa</color>
     <color name="colorPrivateLesson">#E3F2FD</color>
     <color name="colorGroupLesson">#E0F7FA</color>
+    <color name="primary_color">#3494E6</color>
+    <color name="secondary_color">#EC6EAD</color>
 </resources>

@@ -12,7 +12,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.challenge_asgard.Auth.AuthManager;
-import com.example.challenge_asgard.Fragments.GanttFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,6 +23,10 @@ public class StudentDashboardActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private FloatingActionButton fabAddLesson;
+
+    public static Intent createIntent(LoginActivity loginActivity) {
+        return new Intent(loginActivity, StudentDashboardActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +62,10 @@ public class StudentDashboardActivity extends AppCompatActivity {
         // FloatingActionButton listener
         fabAddLesson.setOnClickListener(view -> {
             // Handle FAB click here (e.g., open a new lesson creation screen)
-            Intent intent = new Intent(StudentDashboardActivity.this, AddLessonActivity.class);
+            Intent intent = new Intent(StudentDashboardActivity.this, StudentDashboardActivity.class);
             startActivity(intent); // Navigate to a lesson creation screen
         });
 
-        // Add GanttFragment
-        if (savedInstanceState == null) {
-            // Dynamically add the fragment to the container
-            GanttFragment ganttFragment = new GanttFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, ganttFragment); // Replace with the fragment
-            transaction.commit();
-        }
     }
 
     @Override

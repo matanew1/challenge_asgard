@@ -4,33 +4,44 @@ package com.example.challenge_asgard.Models;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
-public class Instructor extends User {
-    private List<SwimStyle> teachableStyles;
-    private List<Availability> availabilities;
-    private List<Lesson> scheduledLessons;
 
+import java.time.LocalTime;
 
-    // Methods for managing availability and lessons
-    public boolean canTeach(SwimStyle style) {
-        return teachableStyles.contains(style);
+public class Instructor extends BaseUser {
+    private InstructorAvailability availableDays;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private String swimmingStyles;
+
+    public enum InstructorAvailability {
+        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }
 
-    public boolean isAvailable(LocalDateTime dateTime, int durationMinutes) {
-        // Implementation to check if instructor is available
-        return false;
+    public Instructor() {
+        super();
     }
 
-    public void addAvailability(DayOfWeek day, LocalTime startTime, LocalTime endTime) {
-        // Implementation
+    public Instructor(String name, InstructorAvailability availableDays,
+                      LocalTime startTime, LocalTime endTime, String swimmingStyles) {
+        super(name);
+        this.availableDays = availableDays;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.swimmingStyles = swimmingStyles;
     }
 
-    public void setType(String instructor) {
-    }
+    // Getters and setters
+    public InstructorAvailability getAvailableDays() { return availableDays; }
+    public void setAvailableDays(InstructorAvailability availableDays) { this.availableDays = availableDays; }
 
-    public Availability[] getAvailabilities() {
-        return new Availability[0];
-    }
+    public LocalTime getStartTime() { return startTime; }
+    public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
+
+    public LocalTime getEndTime() { return endTime; }
+    public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
+
+    public String getSwimmingStyles() { return swimmingStyles; }
+    public void setSwimmingStyles(String swimmingStyles) { this.swimmingStyles = swimmingStyles; }
 }

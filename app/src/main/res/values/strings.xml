@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">מערכת ניהול שיעורי שחייה</string>
+    <string name="app_name">Swimming Pool System Scheduler</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="student">Student</string>
@@ -36,6 +36,7 @@
     <string name="task_name">Task Name</string>
     <string name="start_time">Start Time</string>
     <string name="end_time">End Time</string>
+    <string name="no_lessons_scheduled_for_this_date">No lessons scheduled for this date</string>
 
     <string-array name="swimming_styles">
         <item>חתירה</item>

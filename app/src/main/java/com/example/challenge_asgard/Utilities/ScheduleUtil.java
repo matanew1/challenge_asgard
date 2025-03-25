@@ -1,9 +1,12 @@
 package com.example.challenge_asgard.Utilities;
 
+import androidx.annotation.Nullable;
+
 import com.example.challenge_asgard.Models.Instructor;
 import com.example.challenge_asgard.Models.Lesson;
-import com.example.challenge_asgard.Models.LessonType;
-import com.example.challenge_asgard.Models.SwimStyle;
+import com.example.challenge_asgard.Models.Student;
+
+import org.jetbrains.annotations.Contract;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +14,9 @@ import java.util.List;
 public class ScheduleUtil {
     // Methods to check for conflicts, generate schedule
 
-    public static List<Instructor> findEligibleInstructors(SwimStyle style, LocalDateTime dateTime, LessonType type) {
+    @Nullable
+    @Contract(pure = true)
+    public static List<Instructor> findEligibleInstructors(Student.SwimmingStyle style, LocalDateTime dateTime, Student.LessonType type) {
         // Find instructors who can teach the requested style and are available
         return null;
     }

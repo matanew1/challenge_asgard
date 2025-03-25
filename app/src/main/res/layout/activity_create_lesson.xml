@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F4F8">
+
+    <!-- App Bar with Elevation and Material Design -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2196F3"
+        app:elevation="4dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Swimming Lesson Booking"
+            app:titleTextColor="#FFFFFF"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Content Container -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Swimming Style Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select Swim Style"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#333333"
+                        android:layout_marginBottom="12dp"/>
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox_freestyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Freestyle"/>
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox_breaststroke"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Breaststroke"/>
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox_butterfly"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Butterfly"/>
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox_backstroke"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Backstroke"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Lesson Type Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select Lesson Type"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#333333"
+                        android:layout_marginBottom="12dp"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/radio_private"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Private Lesson"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Group Lesson"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/radio_either"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Either Private or Group"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Calendar Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select Lesson Date"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#333333"
+                        android:layout_marginBottom="12dp"/>
+
+                    <CalendarView
+                        android:id="@+id/instructorCalendarView"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Time Range Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_specify_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Specify Lesson Duration"
+                        android:layout_marginBottom="12dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/layout_time_range"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Start Time"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <TimePicker
+                            android:id="@+id/time_picker_start"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:timePickerMode="spinner"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="End Time"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <TimePicker
+                            android:id="@+id/time_picker_end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:timePickerMode="spinner"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Submit Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Request Lesson"
+                android:textSize="16sp"
+                app:cornerRadius="8dp"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
